@@ -3,387 +3,250 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Free online loan calculator. Calculate monthly EMI, total interest and total loan payment instantly.">
-<title>Free Loan Calculator - EMI & Interest Calculator</title>
+<title>Free Loan Calculator</title>
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(135deg,#eff6ff,#f8fafc);
-  color:#172033;
-  min-height:100vh;
-  padding:25px 15px;
+    font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(135deg,#eef6ff,#dbeafe);
+    color:#172033;
+    padding:20px;
 }
 
 .container{
-  width:100%;
-  max-width:1050px;
-  margin:auto;
+    max-width:1050px;
+    margin:auto;
+    background:rgba(255,255,255,.94);
+    border-radius:24px;
+    padding:30px;
+    box-shadow:0 20px 60px rgba(15,70,130,.15);
 }
 
-/* Header */
 .header{
-  text-align:center;
-  margin-bottom:25px;
+    text-align:center;
+    margin-bottom:28px;
 }
 
-.logo{
-  width:64px;
-  height:64px;
-  margin:0 auto 12px;
-  border-radius:18px;
-  background:linear-gradient(135deg,#2563eb,#1d4ed8);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-  box-shadow:0 10px 25px rgba(37,99,235,.22);
+.header h1{
+    font-size:32px;
+    color:#0759b5;
+    margin-bottom:8px;
 }
 
-h1{
-  font-size:30px;
-  color:#172033;
-  margin-bottom:8px;
-}
-
-.subtitle{
-  color:#64748b;
-  font-size:15px;
-}
-
-/* Main Card */
-.main-card{
-  background:#fff;
-  border:1px solid #e2e8f0;
-  border-radius:22px;
-  padding:28px;
-  box-shadow:0 15px 45px rgba(15,23,42,.08);
+.header p{
+    color:#667085;
+    font-size:15px;
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:25px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
 }
 
-/* Form */
-.form-section{
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-radius:18px;
-  padding:22px;
+.card{
+    background:#f8fbff;
+    border:1px solid #dbeafe;
+    border-radius:18px;
+    padding:24px;
 }
 
-.section-title{
-  font-size:18px;
-  font-weight:700;
-  margin-bottom:20px;
-  color:#1e293b;
+.card h2{
+    color:#0759b5;
+    font-size:20px;
+    margin-bottom:20px;
 }
 
-.form-group{
-  margin-bottom:18px;
+.field{
+    margin-bottom:18px;
 }
 
 label{
-  display:block;
-  font-size:14px;
-  font-weight:700;
-  color:#334155;
-  margin-bottom:8px;
-}
-
-.input-wrap{
-  position:relative;
-}
-
-.prefix{
-  position:absolute;
-  left:14px;
-  top:50%;
-  transform:translateY(-50%);
-  color:#64748b;
-  font-weight:600;
-  pointer-events:none;
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+    font-size:14px;
 }
 
 input,select{
-  width:100%;
-  height:50px;
-  border:1px solid #cbd5e1;
-  border-radius:12px;
-  padding:0 14px;
-  font-size:16px;
-  outline:none;
-  background:#fff;
-  color:#172033;
-  transition:.2s;
-}
-
-input.has-prefix{
-  padding-left:48px;
+    width:100%;
+    padding:14px 15px;
+    border:1px solid #cbd5e1;
+    border-radius:12px;
+    background:white;
+    font-size:16px;
+    outline:none;
+    transition:.2s;
 }
 
 input:focus,select:focus{
-  border-color:#2563eb;
-  box-shadow:0 0 0 4px rgba(37,99,235,.10);
+    border-color:#1683ff;
+    box-shadow:0 0 0 4px rgba(22,131,255,.12);
 }
 
-.term-row{
-  display:grid;
-  grid-template-columns:1fr 150px;
-  gap:10px;
-}
-
-/* Buttons */
-.buttons{
-  display:flex;
-  gap:10px;
-  margin-top:22px;
+.currency-row{
+    display:grid;
+    grid-template-columns:1fr 1.7fr;
+    gap:10px;
 }
 
 button{
-  height:50px;
-  border:none;
-  border-radius:12px;
-  padding:0 20px;
-  font-size:15px;
-  font-weight:700;
-  cursor:pointer;
-  transition:.2s;
+    border:0;
+    border-radius:12px;
+    padding:14px 20px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.calculate-btn{
-  flex:1;
-  background:#2563eb;
-  color:#fff;
-  box-shadow:0 8px 18px rgba(37,99,235,.22);
+.calculate{
+    width:100%;
+    background:linear-gradient(135deg,#0878e8,#0759b5);
+    color:white;
+    margin-top:5px;
 }
 
-.calculate-btn:hover{
-  background:#1d4ed8;
-  transform:translateY(-1px);
+.calculate:hover{
+    transform:translateY(-1px);
+    box-shadow:0 10px 25px rgba(7,89,181,.25);
 }
 
-.reset-btn{
-  background:#e2e8f0;
-  color:#334155;
+.reset{
+    width:100%;
+    margin-top:10px;
+    background:#eaf2fb;
+    color:#0759b5;
 }
 
-.reset-btn:hover{
-  background:#cbd5e1;
-}
-
-/* Results */
-.results-section{
-  background:linear-gradient(145deg,#eff6ff,#f8fafc);
-  border:1px solid #dbeafe;
-  border-radius:18px;
-  padding:22px;
-}
-
-.result-main{
-  background:#fff;
-  border:1px solid #dbeafe;
-  border-radius:16px;
-  padding:22px;
-  text-align:center;
-  margin-bottom:16px;
-}
-
-.result-label{
-  font-size:14px;
-  color:#64748b;
-  margin-bottom:7px;
-}
-
-.emi{
-  font-size:34px;
-  font-weight:800;
-  color:#2563eb;
-  word-break:break-word;
-}
-
-.per-month{
-  font-size:13px;
-  color:#64748b;
-  margin-top:5px;
-}
-
-.result-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+.results{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
 }
 
 .result-box{
-  background:#fff;
-  border:1px solid #e2e8f0;
-  border-radius:14px;
-  padding:17px;
+    background:white;
+    border:1px solid #e2e8f0;
+    border-radius:15px;
+    padding:17px;
 }
 
-.result-box .label{
-  color:#64748b;
-  font-size:13px;
-  margin-bottom:7px;
+.result-box span{
+    display:block;
+    color:#667085;
+    font-size:13px;
+    margin-bottom:7px;
 }
 
-.result-box .value{
-  font-size:18px;
-  font-weight:750;
-  color:#172033;
-  word-break:break-word;
+.result-box strong{
+    color:#0759b5;
+    font-size:20px;
+    word-break:break-word;
 }
 
-/* Breakdown */
+.main-result{
+    grid-column:1/-1;
+    background:linear-gradient(135deg,#eaf5ff,#f5faff);
+    border:1px solid #b9dcff;
+    text-align:center;
+    padding:25px;
+}
+
+.main-result span{
+    font-size:14px;
+}
+
+.main-result strong{
+    font-size:34px;
+}
+
 .breakdown{
-  margin-top:16px;
-  background:#fff;
-  border:1px solid #e2e8f0;
-  border-radius:14px;
-  padding:18px;
-}
-
-.breakdown-title{
-  font-size:15px;
-  font-weight:700;
-  margin-bottom:13px;
+    margin-top:20px;
 }
 
 .bar{
-  width:100%;
-  height:14px;
-  background:#e2e8f0;
-  border-radius:20px;
-  overflow:hidden;
-  display:flex;
+    height:16px;
+    width:100%;
+    background:#e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+    display:flex;
 }
 
-.principal-bar{
-  background:#2563eb;
-  width:70%;
+.principal{
+    background:#1683ff;
 }
 
-.interest-bar{
-  background:#93c5fd;
-  width:30%;
+.interest{
+    background:#8b5cf6;
 }
 
 .legend{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  margin-top:12px;
-  font-size:12px;
-  color:#64748b;
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+    font-size:13px;
+    color:#667085;
 }
 
-.dot{
-  display:inline-block;
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  margin-right:5px;
-}
-
-.blue-dot{
-  background:#2563eb;
-}
-
-.light-dot{
-  background:#93c5fd;
-}
-
-/* Info */
 .info{
-  margin-top:20px;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-radius:14px;
-  padding:17px;
-  font-size:13px;
-  line-height:1.7;
-  color:#64748b;
+    margin-top:25px;
+    background:#f1f7ff;
+    border-left:4px solid #1683ff;
+    padding:15px;
+    border-radius:10px;
+    color:#475467;
+    font-size:13px;
+    line-height:1.6;
 }
 
-/* Error */
-.error{
-  display:none;
-  background:#fef2f2;
-  border:1px solid #fecaca;
-  color:#b91c1c;
-  padding:12px;
-  border-radius:10px;
-  margin-bottom:15px;
-  font-size:13px;
-}
-
-/* Footer */
 .footer{
-  text-align:center;
-  color:#94a3b8;
-  font-size:12px;
-  margin-top:20px;
+    text-align:center;
+    margin-top:25px;
+    color:#98a2b3;
+    font-size:12px;
 }
 
-/* Responsive */
-@media(max-width:760px){
-  body{
-    padding:15px 10px;
-  }
+@media(max-width:750px){
+    body{
+        padding:10px;
+    }
 
-  .main-card{
-    padding:16px;
-    border-radius:18px;
-  }
+    .container{
+        padding:20px 15px;
+        border-radius:18px;
+    }
 
-  .grid{
-    grid-template-columns:1fr;
-    gap:18px;
-  }
+    .header h1{
+        font-size:26px;
+    }
 
-  h1{
-    font-size:25px;
-  }
+    .grid{
+        grid-template-columns:1fr;
+    }
 
-  .emi{
-    font-size:29px;
-  }
-}
+    .currency-row{
+        grid-template-columns:1fr;
+    }
 
-@media(max-width:450px){
-  .term-row{
-    grid-template-columns:1fr;
-  }
+    .results{
+        grid-template-columns:1fr;
+    }
 
-  .result-grid{
-    grid-template-columns:1fr;
-  }
+    .main-result{
+        grid-column:auto;
+    }
 
-  .buttons{
-    flex-direction:column;
-  }
-
-  .buttons button{
-    width:100%;
-  }
-
-  .main-card{
-    padding:12px;
-  }
-
-  .form-section,
-  .results-section{
-    padding:16px;
-  }
+    .main-result strong{
+        font-size:28px;
+    }
 }
 </style>
 </head>
@@ -392,430 +255,413 @@ button{
 
 <div class="container">
 
-  <div class="header">
-    <div class="logo">₹</div>
-    <h1>Loan Calculator</h1>
-    <p class="subtitle">
-      Calculate your monthly EMI, total interest and total loan payment instantly.
-    </p>
-  </div>
-
-  <div class="main-card">
+    <div class="header">
+        <h1>💰 Free Loan Calculator</h1>
+        <p>Calculate your monthly EMI, total interest and total repayment instantly.</p>
+    </div>
 
     <div class="grid">
 
-      <!-- INPUT SECTION -->
-      <div class="form-section">
+        <!-- INPUT CARD -->
+        <div class="card">
 
-        <div class="section-title">
-          Loan Details
-        </div>
+            <h2>Loan Details</h2>
 
-        <div id="error" class="error"></div>
+            <div class="field">
+                <label>Currency</label>
 
-        <div class="form-group">
-          <label for="loanAmount">Loan Amount</label>
+                <select id="currency">
+                    <option value="LKR">🇱🇰 LKR — Sri Lankan Rupee</option>
+                    <option value="USD">🇺🇸 USD — US Dollar</option>
+                    <option value="GBP">🇬🇧 GBP — British Pound</option>
+                    <option value="EUR">🇪🇺 EUR — Euro</option>
+                    <option value="INR">🇮🇳 INR — Indian Rupee</option>
+                    <option value="AUD">🇦🇺 AUD — Australian Dollar</option>
+                    <option value="CAD">🇨🇦 CAD — Canadian Dollar</option>
+                    <option value="AED">🇦🇪 AED — UAE Dirham</option>
+                    <option value="SAR">🇸🇦 SAR — Saudi Riyal</option>
+                    <option value="QAR">🇶🇦 QAR — Qatari Riyal</option>
+                    <option value="JPY">🇯🇵 JPY — Japanese Yen</option>
+                    <option value="CNY">🇨🇳 CNY — Chinese Yuan</option>
+                    <option value="SGD">🇸🇬 SGD — Singapore Dollar</option>
+                    <option value="MYR">🇲🇾 MYR — Malaysian Ringgit</option>
+                    <option value="NZD">🇳🇿 NZD — New Zealand Dollar</option>
+                    <option value="CHF">🇨🇭 CHF — Swiss Franc</option>
+                    <option value="HKD">🇭🇰 HKD — Hong Kong Dollar</option>
+                    <option value="ZAR">🇿🇦 ZAR — South African Rand</option>
+                    <option value="KRW">🇰🇷 KRW — South Korean Won</option>
+                    <option value="THB">🇹🇭 THB — Thai Baht</option>
+                    <option value="PHP">🇵🇭 PHP — Philippine Peso</option>
+                    <option value="IDR">🇮🇩 IDR — Indonesian Rupiah</option>
+                    <option value="BDT">🇧🇩 BDT — Bangladeshi Taka</option>
+                    <option value="PKR">🇵🇰 PKR — Pakistani Rupee</option>
+                    <option value="NPR">🇳🇵 NPR — Nepalese Rupee</option>
+                </select>
+            </div>
 
-          <div class="input-wrap">
-            <span class="prefix">Rs.</span>
-            <input
-              type="number"
-              id="loanAmount"
-              class="has-prefix"
-              value="1000000"
-              min="1"
-              step="1000"
-              placeholder="Enter loan amount">
-          </div>
-        </div>
+            <div class="field">
+                <label>Loan Amount</label>
 
-        <div class="form-group">
-          <label for="interestRate">Annual Interest Rate (%)</label>
+                <input
+                    type="number"
+                    id="loanAmount"
+                    value="1000000"
+                    min="0"
+                    step="any"
+                    placeholder="Enter loan amount">
+            </div>
 
-          <input
-            type="number"
-            id="interestRate"
-            value="12"
-            min="0"
-            max="100"
-            step="0.01"
-            placeholder="e.g. 12">
-        </div>
+            <div class="field">
+                <label>Annual Interest Rate (%)</label>
 
-        <div class="form-group">
-          <label>Loan Term</label>
+                <input
+                    type="number"
+                    id="interestRate"
+                    value="12"
+                    min="0"
+                    step="0.01"
+                    placeholder="Example: 12">
+            </div>
 
-          <div class="term-row">
-            <input
-              type="number"
-              id="loanTerm"
-              value="5"
-              min="1"
-              max="100"
-              step="1">
+            <div class="field">
+                <label>Loan Term</label>
 
-            <select id="termUnit">
-              <option value="years">Years</option>
-              <option value="months">Months</option>
-            </select>
-          </div>
-        </div>
+                <div class="currency-row">
+                    <input
+                        type="number"
+                        id="loanTerm"
+                        value="5"
+                        min="1"
+                        step="1">
 
-        <div class="buttons">
-          <button
-            type="button"
-            class="calculate-btn"
-            id="calculateBtn">
-            Calculate Loan
-          </button>
+                    <select id="termType">
+                        <option value="years">Years</option>
+                        <option value="months">Months</option>
+                    </select>
+                </div>
+            </div>
 
-          <button
-            type="button"
-            class="reset-btn"
-            id="resetBtn">
-            Reset
-          </button>
-        </div>
+            <button class="calculate" onclick="calculateLoan()">
+                Calculate Loan
+            </button>
 
-      </div>
-
-
-      <!-- RESULT SECTION -->
-      <div class="results-section">
-
-        <div class="section-title">
-          Loan Summary
-        </div>
-
-        <div class="result-main">
-
-          <div class="result-label">
-            Monthly Payment
-          </div>
-
-          <div class="emi" id="monthlyPayment">
-            Rs. 0.00
-          </div>
-
-          <div class="per-month">
-            per month
-          </div>
+            <button class="reset" onclick="resetCalculator()">
+                Reset
+            </button>
 
         </div>
 
 
-        <div class="result-grid">
+        <!-- RESULTS CARD -->
+        <div class="card">
 
-          <div class="result-box">
-            <div class="label">
-              Total Payment
+            <h2>Loan Summary</h2>
+
+            <div class="results">
+
+                <div class="result-box main-result">
+                    <span>Monthly EMI</span>
+                    <strong id="monthlyPayment">Rs. 0.00</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Loan Amount</span>
+                    <strong id="displayLoan">Rs. 0.00</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Total Interest</span>
+                    <strong id="totalInterest">Rs. 0.00</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Total Payment</span>
+                    <strong id="totalPayment">Rs. 0.00</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Number of Payments</span>
+                    <strong id="paymentCount">0</strong>
+                </div>
+
             </div>
 
-            <div class="value" id="totalPayment">
-              Rs. 0.00
-            </div>
-          </div>
+            <div class="breakdown">
 
-          <div class="result-box">
-            <div class="label">
-              Total Interest
-            </div>
+                <div class="bar">
+                    <div class="principal" id="principalBar"></div>
+                    <div class="interest" id="interestBar"></div>
+                </div>
 
-            <div class="value" id="totalInterest">
-              Rs. 0.00
-            </div>
-          </div>
+                <div class="legend">
+                    <span>● Principal</span>
+                    <span>● Interest</span>
+                </div>
 
-          <div class="result-box">
-            <div class="label">
-              Loan Amount
             </div>
 
-            <div class="value" id="displayPrincipal">
-              Rs. 0.00
+            <div class="info">
+                <strong>Note:</strong>
+                This calculator uses the standard fixed-rate EMI formula.
+                The selected currency changes the displayed currency only;
+                it does not perform currency exchange or conversion.
             </div>
-          </div>
-
-          <div class="result-box">
-            <div class="label">
-              Number of Payments
-            </div>
-
-            <div class="value" id="numberPayments">
-              0
-            </div>
-          </div>
 
         </div>
-
-
-        <div class="breakdown">
-
-          <div class="breakdown-title">
-            Principal vs Interest
-          </div>
-
-          <div class="bar">
-            <div
-              class="principal-bar"
-              id="principalBar">
-            </div>
-
-            <div
-              class="interest-bar"
-              id="interestBar">
-            </div>
-          </div>
-
-          <div class="legend">
-
-            <span>
-              <span class="dot blue-dot"></span>
-              Principal
-              <strong id="principalPercent">0%</strong>
-            </span>
-
-            <span>
-              <span class="dot light-dot"></span>
-              Interest
-              <strong id="interestPercent">0%</strong>
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
 
     </div>
 
-
-    <div class="info">
-      <strong>How it works:</strong>
-      This calculator uses the standard fixed-rate loan EMI formula.
-      Your actual monthly payment may differ depending on your bank's
-      interest calculation method, fees, insurance, taxes and other charges.
+    <div class="footer">
+        Free Tools Zone • Free Online Loan Calculator
     </div>
-
-  </div>
-
-  <div class="footer">
-    Free Tools Zone • Free Online Loan Calculator
-  </div>
 
 </div>
 
 
 <script>
-(function(){
 
-  const loanAmount = document.getElementById("loanAmount");
-  const interestRate = document.getElementById("interestRate");
-  const loanTerm = document.getElementById("loanTerm");
-  const termUnit = document.getElementById("termUnit");
+const currencyLocales = {
 
-  const calculateBtn = document.getElementById("calculateBtn");
-  const resetBtn = document.getElementById("resetBtn");
+    LKR: "en-LK",
+    USD: "en-US",
+    GBP: "en-GB",
+    EUR: "de-DE",
+    INR: "en-IN",
+    AUD: "en-AU",
+    CAD: "en-CA",
+    AED: "ar-AE",
+    SAR: "ar-SA",
+    QAR: "ar-QA",
+    JPY: "ja-JP",
+    CNY: "zh-CN",
+    SGD: "en-SG",
+    MYR: "ms-MY",
+    NZD: "en-NZ",
+    CHF: "de-CH",
+    HKD: "zh-HK",
+    ZAR: "en-ZA",
+    KRW: "ko-KR",
+    THB: "th-TH",
+    PHP: "en-PH",
+    IDR: "id-ID",
+    BDT: "bn-BD",
+    PKR: "en-PK",
+    NPR: "ne-NP"
 
-  const errorBox = document.getElementById("error");
-
-  const monthlyPayment = document.getElementById("monthlyPayment");
-  const totalPayment = document.getElementById("totalPayment");
-  const totalInterest = document.getElementById("totalInterest");
-  const displayPrincipal = document.getElementById("displayPrincipal");
-  const numberPayments = document.getElementById("numberPayments");
-
-  const principalBar = document.getElementById("principalBar");
-  const interestBar = document.getElementById("interestBar");
-
-  const principalPercent = document.getElementById("principalPercent");
-  const interestPercent = document.getElementById("interestPercent");
+};
 
 
-  function formatMoney(value){
+function formatCurrency(amount){
 
-    if(!Number.isFinite(value)){
-      return "Rs. 0.00";
+    const currency =
+        document.getElementById("currency").value;
+
+    const locale =
+        currencyLocales[currency] || "en-US";
+
+    try{
+
+        return new Intl.NumberFormat(locale, {
+
+            style:"currency",
+            currency:currency,
+            maximumFractionDigits:
+                ["JPY","KRW","IDR"].includes(currency)
+                ? 0
+                : 2
+
+        }).format(amount);
+
+    }catch(error){
+
+        return currency + " " +
+            Number(amount).toLocaleString();
+
     }
 
-    return "Rs. " + value.toLocaleString("en-LK", {
-      minimumFractionDigits:2,
-      maximumFractionDigits:2
-    });
-  }
+}
 
 
-  function showError(message){
+function calculateLoan(){
 
-    errorBox.textContent = message;
-    errorBox.style.display = "block";
+    const loanAmount =
+        parseFloat(
+            document.getElementById("loanAmount").value
+        );
 
-  }
+    const annualRate =
+        parseFloat(
+            document.getElementById("interestRate").value
+        );
 
+    const term =
+        parseFloat(
+            document.getElementById("loanTerm").value
+        );
 
-  function hideError(){
-
-    errorBox.textContent = "";
-    errorBox.style.display = "none";
-
-  }
-
-
-  function calculate(){
-
-    hideError();
-
-    const principal = Number(loanAmount.value);
-    const annualRate = Number(interestRate.value);
-    const term = Number(loanTerm.value);
-    const unit = termUnit.value;
+    const termType =
+        document.getElementById("termType").value;
 
 
-    if(!Number.isFinite(principal) || principal <= 0){
-      showError("Please enter a valid loan amount.");
-      return;
-    }
+    if(
+        isNaN(loanAmount) ||
+        isNaN(annualRate) ||
+        isNaN(term) ||
+        loanAmount <= 0 ||
+        term <= 0 ||
+        annualRate < 0
+    ){
 
-    if(!Number.isFinite(annualRate) || annualRate < 0 || annualRate > 100){
-      showError("Please enter an interest rate between 0% and 100%.");
-      return;
-    }
+        alert("Please enter valid loan details.");
+        return;
 
-    if(!Number.isFinite(term) || term <= 0){
-      showError("Please enter a valid loan term.");
-      return;
     }
 
 
-    let months;
+    let numberOfPayments;
 
-    if(unit === "years"){
-      months = Math.round(term * 12);
+    if(termType === "years"){
+
+        numberOfPayments =
+            Math.round(term * 12);
+
     }else{
-      months = Math.round(term);
+
+        numberOfPayments =
+            Math.round(term);
+
     }
 
 
-    if(months < 1 || months > 1200){
-      showError("Please enter a loan term between 1 month and 100 years.");
-      return;
-    }
+    const monthlyRate =
+        annualRate / 100 / 12;
 
 
-    const monthlyRate = annualRate / 100 / 12;
-
-    let payment;
+    let monthlyPayment;
 
 
     if(monthlyRate === 0){
 
-      payment = principal / months;
+        monthlyPayment =
+            loanAmount / numberOfPayments;
 
     }else{
 
-      const factor = Math.pow(1 + monthlyRate, months);
-
-      payment =
-        principal *
-        monthlyRate *
-        factor /
-        (factor - 1);
-
-    }
-
-
-    const total = payment * months;
-    const interest = total - principal;
-
-
-    if(
-      !Number.isFinite(payment) ||
-      !Number.isFinite(total) ||
-      !Number.isFinite(interest)
-    ){
-
-      showError("The entered values are too large to calculate.");
-      return;
+        monthlyPayment =
+            loanAmount *
+            (
+                monthlyRate *
+                Math.pow(
+                    1 + monthlyRate,
+                    numberOfPayments
+                )
+            )
+            /
+            (
+                Math.pow(
+                    1 + monthlyRate,
+                    numberOfPayments
+                ) - 1
+            );
 
     }
 
 
-    monthlyPayment.textContent = formatMoney(payment);
-    totalPayment.textContent = formatMoney(total);
-    totalInterest.textContent = formatMoney(interest);
-    displayPrincipal.textContent = formatMoney(principal);
-    numberPayments.textContent = months.toLocaleString();
+    const totalPayment =
+        monthlyPayment * numberOfPayments;
 
 
-    const totalBreakdown = principal + Math.max(interest,0);
-
-    let principalPct = totalBreakdown > 0
-      ? (principal / totalBreakdown) * 100
-      : 100;
-
-    let interestPct = 100 - principalPct;
+    const totalInterest =
+        totalPayment - loanAmount;
 
 
-    principalPct = Math.max(0,Math.min(100,principalPct));
-    interestPct = Math.max(0,Math.min(100,interestPct));
+    document.getElementById("monthlyPayment")
+        .textContent =
+        formatCurrency(monthlyPayment);
 
 
-    principalBar.style.width = principalPct + "%";
-    interestBar.style.width = interestPct + "%";
-
-    principalPercent.textContent = principalPct.toFixed(1) + "%";
-    interestPercent.textContent = interestPct.toFixed(1) + "%";
-
-  }
+    document.getElementById("displayLoan")
+        .textContent =
+        formatCurrency(loanAmount);
 
 
-  function reset(){
-
-    loanAmount.value = "1000000";
-    interestRate.value = "12";
-    loanTerm.value = "5";
-    termUnit.value = "years";
-
-    hideError();
-
-    monthlyPayment.textContent = "Rs. 0.00";
-    totalPayment.textContent = "Rs. 0.00";
-    totalInterest.textContent = "Rs. 0.00";
-    displayPrincipal.textContent = "Rs. 0.00";
-    numberPayments.textContent = "0";
-
-    principalBar.style.width = "70%";
-    interestBar.style.width = "30%";
-
-    principalPercent.textContent = "0%";
-    interestPercent.textContent = "0%";
-
-  }
+    document.getElementById("totalInterest")
+        .textContent =
+        formatCurrency(totalInterest);
 
 
-  calculateBtn.addEventListener("click", calculate);
-  resetBtn.addEventListener("click", reset);
+    document.getElementById("totalPayment")
+        .textContent =
+        formatCurrency(totalPayment);
 
 
-  [loanAmount,interestRate,loanTerm].forEach(function(input){
-
-    input.addEventListener("keydown",function(event){
-
-      if(event.key === "Enter"){
-        calculate();
-      }
-
-    });
-
-  });
+    document.getElementById("paymentCount")
+        .textContent =
+        numberOfPayments.toLocaleString();
 
 
-  termUnit.addEventListener("change",calculate);
+    const principalPercentage =
+        (loanAmount / totalPayment) * 100;
 
 
-  calculate();
+    const interestPercentage =
+        (totalInterest / totalPayment) * 100;
 
-})();
+
+    document.getElementById("principalBar")
+        .style.width =
+        principalPercentage + "%";
+
+
+    document.getElementById("interestBar")
+        .style.width =
+        interestPercentage + "%";
+
+}
+
+
+function resetCalculator(){
+
+    document.getElementById("currency").value = "LKR";
+
+    document.getElementById("loanAmount").value = "1000000";
+
+    document.getElementById("interestRate").value = "12";
+
+    document.getElementById("loanTerm").value = "5";
+
+    document.getElementById("termType").value = "years";
+
+    document.getElementById("monthlyPayment")
+        .textContent = "Rs. 0.00";
+
+    document.getElementById("displayLoan")
+        .textContent = "Rs. 0.00";
+
+    document.getElementById("totalInterest")
+        .textContent = "Rs. 0.00";
+
+    document.getElementById("totalPayment")
+        .textContent = "Rs. 0.00";
+
+    document.getElementById("paymentCount")
+        .textContent = "0";
+
+    document.getElementById("principalBar")
+        .style.width = "0%";
+
+    document.getElementById("interestBar")
+        .style.width = "0%";
+
+}
+
+
+document.getElementById("currency")
+    .addEventListener("change", calculateLoan);
+
+
+calculateLoan();
+
 </script>
 
 </body>
