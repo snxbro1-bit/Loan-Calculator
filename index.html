@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free online loan calculator. Calculate monthly EMI, total interest and total loan payment instantly.">
+<title>Free Loan Calculator - EMI & Interest Calculator</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(135deg,#eff6ff,#f8fafc);
+  color:#172033;
+  min-height:100vh;
+  padding:25px 15px;
+}
+
+.container{
+  width:100%;
+  max-width:1050px;
+  margin:auto;
+}
+
+/* Header */
+.header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.logo{
+  width:64px;
+  height:64px;
+  margin:0 auto 12px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  box-shadow:0 10px 25px rgba(37,99,235,.22);
+}
+
+h1{
+  font-size:30px;
+  color:#172033;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  color:#64748b;
+  font-size:15px;
+}
+
+/* Main Card */
+.main-card{
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 15px 45px rgba(15,23,42,.08);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+}
+
+/* Form */
+.form-section{
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:18px;
+  padding:22px;
+}
+
+.section-title{
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:20px;
+  color:#1e293b;
+}
+
+.form-group{
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  font-size:14px;
+  font-weight:700;
+  color:#334155;
+  margin-bottom:8px;
+}
+
+.input-wrap{
+  position:relative;
+}
+
+.prefix{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#64748b;
+  font-weight:600;
+  pointer-events:none;
+}
+
+input,select{
+  width:100%;
+  height:50px;
+  border:1px solid #cbd5e1;
+  border-radius:12px;
+  padding:0 14px;
+  font-size:16px;
+  outline:none;
+  background:#fff;
+  color:#172033;
+  transition:.2s;
+}
+
+input.has-prefix{
+  padding-left:48px;
+}
+
+input:focus,select:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 4px rgba(37,99,235,.10);
+}
+
+.term-row{
+  display:grid;
+  grid-template-columns:1fr 150px;
+  gap:10px;
+}
+
+/* Buttons */
+.buttons{
+  display:flex;
+  gap:10px;
+  margin-top:22px;
+}
+
+button{
+  height:50px;
+  border:none;
+  border-radius:12px;
+  padding:0 20px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.calculate-btn{
+  flex:1;
+  background:#2563eb;
+  color:#fff;
+  box-shadow:0 8px 18px rgba(37,99,235,.22);
+}
+
+.calculate-btn:hover{
+  background:#1d4ed8;
+  transform:translateY(-1px);
+}
+
+.reset-btn{
+  background:#e2e8f0;
+  color:#334155;
+}
+
+.reset-btn:hover{
+  background:#cbd5e1;
+}
+
+/* Results */
+.results-section{
+  background:linear-gradient(145deg,#eff6ff,#f8fafc);
+  border:1px solid #dbeafe;
+  border-radius:18px;
+  padding:22px;
+}
+
+.result-main{
+  background:#fff;
+  border:1px solid #dbeafe;
+  border-radius:16px;
+  padding:22px;
+  text-align:center;
+  margin-bottom:16px;
+}
+
+.result-label{
+  font-size:14px;
+  color:#64748b;
+  margin-bottom:7px;
+}
+
+.emi{
+  font-size:34px;
+  font-weight:800;
+  color:#2563eb;
+  word-break:break-word;
+}
+
+.per-month{
+  font-size:13px;
+  color:#64748b;
+  margin-top:5px;
+}
+
+.result-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.result-box{
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:14px;
+  padding:17px;
+}
+
+.result-box .label{
+  color:#64748b;
+  font-size:13px;
+  margin-bottom:7px;
+}
+
+.result-box .value{
+  font-size:18px;
+  font-weight:750;
+  color:#172033;
+  word-break:break-word;
+}
+
+/* Breakdown */
+.breakdown{
+  margin-top:16px;
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:14px;
+  padding:18px;
+}
+
+.breakdown-title{
+  font-size:15px;
+  font-weight:700;
+  margin-bottom:13px;
+}
+
+.bar{
+  width:100%;
+  height:14px;
+  background:#e2e8f0;
+  border-radius:20px;
+  overflow:hidden;
+  display:flex;
+}
+
+.principal-bar{
+  background:#2563eb;
+  width:70%;
+}
+
+.interest-bar{
+  background:#93c5fd;
+  width:30%;
+}
+
+.legend{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:12px;
+  font-size:12px;
+  color:#64748b;
+}
+
+.dot{
+  display:inline-block;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  margin-right:5px;
+}
+
+.blue-dot{
+  background:#2563eb;
+}
+
+.light-dot{
+  background:#93c5fd;
+}
+
+/* Info */
+.info{
+  margin-top:20px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:14px;
+  padding:17px;
+  font-size:13px;
+  line-height:1.7;
+  color:#64748b;
+}
+
+/* Error */
+.error{
+  display:none;
+  background:#fef2f2;
+  border:1px solid #fecaca;
+  color:#b91c1c;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:15px;
+  font-size:13px;
+}
+
+/* Footer */
+.footer{
+  text-align:center;
+  color:#94a3b8;
+  font-size:12px;
+  margin-top:20px;
+}
+
+/* Responsive */
+@media(max-width:760px){
+  body{
+    padding:15px 10px;
+  }
+
+  .main-card{
+    padding:16px;
+    border-radius:18px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  h1{
+    font-size:25px;
+  }
+
+  .emi{
+    font-size:29px;
+  }
+}
+
+@media(max-width:450px){
+  .term-row{
+    grid-template-columns:1fr;
+  }
+
+  .result-grid{
+    grid-template-columns:1fr;
+  }
+
+  .buttons{
+    flex-direction:column;
+  }
+
+  .buttons button{
+    width:100%;
+  }
+
+  .main-card{
+    padding:12px;
+  }
+
+  .form-section,
+  .results-section{
+    padding:16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo">₹</div>
+    <h1>Loan Calculator</h1>
+    <p class="subtitle">
+      Calculate your monthly EMI, total interest and total loan payment instantly.
+    </p>
+  </div>
+
+  <div class="main-card">
+
+    <div class="grid">
+
+      <!-- INPUT SECTION -->
+      <div class="form-section">
+
+        <div class="section-title">
+          Loan Details
+        </div>
+
+        <div id="error" class="error"></div>
+
+        <div class="form-group">
+          <label for="loanAmount">Loan Amount</label>
+
+          <div class="input-wrap">
+            <span class="prefix">Rs.</span>
+            <input
+              type="number"
+              id="loanAmount"
+              class="has-prefix"
+              value="1000000"
+              min="1"
+              step="1000"
+              placeholder="Enter loan amount">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="interestRate">Annual Interest Rate (%)</label>
+
+          <input
+            type="number"
+            id="interestRate"
+            value="12"
+            min="0"
+            max="100"
+            step="0.01"
+            placeholder="e.g. 12">
+        </div>
+
+        <div class="form-group">
+          <label>Loan Term</label>
+
+          <div class="term-row">
+            <input
+              type="number"
+              id="loanTerm"
+              value="5"
+              min="1"
+              max="100"
+              step="1">
+
+            <select id="termUnit">
+              <option value="years">Years</option>
+              <option value="months">Months</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button
+            type="button"
+            class="calculate-btn"
+            id="calculateBtn">
+            Calculate Loan
+          </button>
+
+          <button
+            type="button"
+            class="reset-btn"
+            id="resetBtn">
+            Reset
+          </button>
+        </div>
+
+      </div>
+
+
+      <!-- RESULT SECTION -->
+      <div class="results-section">
+
+        <div class="section-title">
+          Loan Summary
+        </div>
+
+        <div class="result-main">
+
+          <div class="result-label">
+            Monthly Payment
+          </div>
+
+          <div class="emi" id="monthlyPayment">
+            Rs. 0.00
+          </div>
+
+          <div class="per-month">
+            per month
+          </div>
+
+        </div>
+
+
+        <div class="result-grid">
+
+          <div class="result-box">
+            <div class="label">
+              Total Payment
+            </div>
+
+            <div class="value" id="totalPayment">
+              Rs. 0.00
+            </div>
+          </div>
+
+          <div class="result-box">
+            <div class="label">
+              Total Interest
+            </div>
+
+            <div class="value" id="totalInterest">
+              Rs. 0.00
+            </div>
+          </div>
+
+          <div class="result-box">
+            <div class="label">
+              Loan Amount
+            </div>
+
+            <div class="value" id="displayPrincipal">
+              Rs. 0.00
+            </div>
+          </div>
+
+          <div class="result-box">
+            <div class="label">
+              Number of Payments
+            </div>
+
+            <div class="value" id="numberPayments">
+              0
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="breakdown">
+
+          <div class="breakdown-title">
+            Principal vs Interest
+          </div>
+
+          <div class="bar">
+            <div
+              class="principal-bar"
+              id="principalBar">
+            </div>
+
+            <div
+              class="interest-bar"
+              id="interestBar">
+            </div>
+          </div>
+
+          <div class="legend">
+
+            <span>
+              <span class="dot blue-dot"></span>
+              Principal
+              <strong id="principalPercent">0%</strong>
+            </span>
+
+            <span>
+              <span class="dot light-dot"></span>
+              Interest
+              <strong id="interestPercent">0%</strong>
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="info">
+      <strong>How it works:</strong>
+      This calculator uses the standard fixed-rate loan EMI formula.
+      Your actual monthly payment may differ depending on your bank's
+      interest calculation method, fees, insurance, taxes and other charges.
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Free Tools Zone • Free Online Loan Calculator
+  </div>
+
+</div>
+
+
+<script>
+(function(){
+
+  const loanAmount = document.getElementById("loanAmount");
+  const interestRate = document.getElementById("interestRate");
+  const loanTerm = document.getElementById("loanTerm");
+  const termUnit = document.getElementById("termUnit");
+
+  const calculateBtn = document.getElementById("calculateBtn");
+  const resetBtn = document.getElementById("resetBtn");
+
+  const errorBox = document.getElementById("error");
+
+  const monthlyPayment = document.getElementById("monthlyPayment");
+  const totalPayment = document.getElementById("totalPayment");
+  const totalInterest = document.getElementById("totalInterest");
+  const displayPrincipal = document.getElementById("displayPrincipal");
+  const numberPayments = document.getElementById("numberPayments");
+
+  const principalBar = document.getElementById("principalBar");
+  const interestBar = document.getElementById("interestBar");
+
+  const principalPercent = document.getElementById("principalPercent");
+  const interestPercent = document.getElementById("interestPercent");
+
+
+  function formatMoney(value){
+
+    if(!Number.isFinite(value)){
+      return "Rs. 0.00";
+    }
+
+    return "Rs. " + value.toLocaleString("en-LK", {
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    });
+  }
+
+
+  function showError(message){
+
+    errorBox.textContent = message;
+    errorBox.style.display = "block";
+
+  }
+
+
+  function hideError(){
+
+    errorBox.textContent = "";
+    errorBox.style.display = "none";
+
+  }
+
+
+  function calculate(){
+
+    hideError();
+
+    const principal = Number(loanAmount.value);
+    const annualRate = Number(interestRate.value);
+    const term = Number(loanTerm.value);
+    const unit = termUnit.value;
+
+
+    if(!Number.isFinite(principal) || principal <= 0){
+      showError("Please enter a valid loan amount.");
+      return;
+    }
+
+    if(!Number.isFinite(annualRate) || annualRate < 0 || annualRate > 100){
+      showError("Please enter an interest rate between 0% and 100%.");
+      return;
+    }
+
+    if(!Number.isFinite(term) || term <= 0){
+      showError("Please enter a valid loan term.");
+      return;
+    }
+
+
+    let months;
+
+    if(unit === "years"){
+      months = Math.round(term * 12);
+    }else{
+      months = Math.round(term);
+    }
+
+
+    if(months < 1 || months > 1200){
+      showError("Please enter a loan term between 1 month and 100 years.");
+      return;
+    }
+
+
+    const monthlyRate = annualRate / 100 / 12;
+
+    let payment;
+
+
+    if(monthlyRate === 0){
+
+      payment = principal / months;
+
+    }else{
+
+      const factor = Math.pow(1 + monthlyRate, months);
+
+      payment =
+        principal *
+        monthlyRate *
+        factor /
+        (factor - 1);
+
+    }
+
+
+    const total = payment * months;
+    const interest = total - principal;
+
+
+    if(
+      !Number.isFinite(payment) ||
+      !Number.isFinite(total) ||
+      !Number.isFinite(interest)
+    ){
+
+      showError("The entered values are too large to calculate.");
+      return;
+
+    }
+
+
+    monthlyPayment.textContent = formatMoney(payment);
+    totalPayment.textContent = formatMoney(total);
+    totalInterest.textContent = formatMoney(interest);
+    displayPrincipal.textContent = formatMoney(principal);
+    numberPayments.textContent = months.toLocaleString();
+
+
+    const totalBreakdown = principal + Math.max(interest,0);
+
+    let principalPct = totalBreakdown > 0
+      ? (principal / totalBreakdown) * 100
+      : 100;
+
+    let interestPct = 100 - principalPct;
+
+
+    principalPct = Math.max(0,Math.min(100,principalPct));
+    interestPct = Math.max(0,Math.min(100,interestPct));
+
+
+    principalBar.style.width = principalPct + "%";
+    interestBar.style.width = interestPct + "%";
+
+    principalPercent.textContent = principalPct.toFixed(1) + "%";
+    interestPercent.textContent = interestPct.toFixed(1) + "%";
+
+  }
+
+
+  function reset(){
+
+    loanAmount.value = "1000000";
+    interestRate.value = "12";
+    loanTerm.value = "5";
+    termUnit.value = "years";
+
+    hideError();
+
+    monthlyPayment.textContent = "Rs. 0.00";
+    totalPayment.textContent = "Rs. 0.00";
+    totalInterest.textContent = "Rs. 0.00";
+    displayPrincipal.textContent = "Rs. 0.00";
+    numberPayments.textContent = "0";
+
+    principalBar.style.width = "70%";
+    interestBar.style.width = "30%";
+
+    principalPercent.textContent = "0%";
+    interestPercent.textContent = "0%";
+
+  }
+
+
+  calculateBtn.addEventListener("click", calculate);
+  resetBtn.addEventListener("click", reset);
+
+
+  [loanAmount,interestRate,loanTerm].forEach(function(input){
+
+    input.addEventListener("keydown",function(event){
+
+      if(event.key === "Enter"){
+        calculate();
+      }
+
+    });
+
+  });
+
+
+  termUnit.addEventListener("change",calculate);
+
+
+  calculate();
+
+})();
+</script>
+
+</body>
+</html>
